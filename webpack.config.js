@@ -1,6 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 export default {
 devtool: 'source-map',
 entry: [
@@ -13,6 +14,7 @@ publicPath: '/',
 filename: 'bundle.js'
 },
 plugins: [
+new MiniCssExtractPlugin(),    
 new HtmlWebpackPlugin({
 template: './client/src/app/index.html',
 inject: true
@@ -20,6 +22,10 @@ inject: true
 ],
 module: {
 rules : [
+{
+test: /\.[s]css$/,
+use: [MiniCssExtractPlugin.loader,'style-loader', 'css-loader', 'sass-loader'],
+},
 {
 test: /\.js$/,
 exclude: /node_modules/,
